@@ -49,21 +49,31 @@ def verify_admin_token(credentials: HTTPAuthorizationCredentials = Depends(secur
 app = FastAPI(title="Koreli Çeyiz API")
 
 # --- CORS GÜVENLİK AYARLARI ---
-allowed_origins_str = os.getenv("ALLOWED_ORIGINS", "*")
+# Yerel geliştirme ve canlı (Vercel) alan adları
+default_origins = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "https://koreli-ceyiz.vercel.app"
+]
 
-# "*" geldiğinde tüm origin'lere izin ver (credentials=False ile uyumlu)
-if allowed_origins_str.strip() == "*":
+allowed_origins_str = os.getenv("ALLOWED_ORIGINS", "")
+if allowed_origins_str and allowed_origins_str.strip() != "*":
+    extra_origins = [origin.strip() for origin in allowed_origins_str.split(",") if origin.strip()]
+    allowed_origins = list(set(default_origins + extra_origins))
+    allow_all = False
+elif allowed_origins_str.strip() == "*":
     allowed_origins = ["*"]
-    allow_creds = False
+    allow_all = True
 else:
-    allowed_origins = [origin.strip() for origin in allowed_origins_str.split(",") if origin.strip()]
-    allow_creds = True
+    allowed_origins = default_origins
+    allow_all = False
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=allowed_origins,
-    allow_credentials=allow_creds,
-    allow_methods=["*"], 
+    allow_origins=allowed_origins if not allow_all else ["*"],
+    allow_origin_regex=r"^https://.*\.vercel\.app$" if not allow_all else None,
+    allow_credentials=True if not allow_all else False,
+    allow_methods=["*"],
     allow_headers=["*"],
 )
 
