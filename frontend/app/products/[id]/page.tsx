@@ -1,9 +1,11 @@
+import { headers } from 'next/headers';
 import Link from 'next/link';
 import { playfair } from '@/app/fonts';
-import { ChevronRight, MessageCircle, ShieldCheck, Truck, Undo2 } from 'lucide-react';
+import { ChevronRight, ShieldCheck, Truck, Undo2 } from 'lucide-react';
 import ProductGallery from '@/components/ProductGallery';
 import FavoriteButton from '@/components/FavoriteButton';
 import BackButton from '@/components/BackButton';
+import WhatsAppInquiryButton from '@/components/WhatsAppInquiryButton';
 import { API_URL, SITE_URL } from '@/utils/config';
 
 type Product = {
@@ -56,14 +58,12 @@ export default async function ProductDetailPage({ params }: Props) {
         );
     }
 
-    // KİLİT NOKTA: Site yayına girince burayı kendi alan adınla değiştirmelisin (Örn: https://www.koreliceyiz.com)
-    const domain = SITE_URL;
+    // Dinamik Domain Tespiti: Headers üzerinden gelen istek domain'ini otomatik algılar (Vercel veya Özel Domain)
+    const headerList = await headers();
+    const host = headerList.get("x-forwarded-host") || headerList.get("host") || "";
+    const proto = headerList.get("x-forwarded-proto") || (host.includes("localhost") || host.includes("127.0.0.1") ? "http" : "https");
+    const domain = host ? `${proto}://${host}` : SITE_URL;
     const productUrl = `${domain}/products/${product.id}`;
-
-    // KİLİT NOKTA: Mesajın içine ürün linki de eklendi
-    const message = encodeURIComponent(`Merhaba, sitenizdeki "${product.name}" modeli hakkında detaylı bilgi ve fiyat almak istiyorum.\n\nÜrün Linki: ${productUrl}`);
-    const whatsappNumber = "905078845423";
-    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
 
     return (
         <main className="bg-white min-h-screen pt-8 pb-24">
@@ -114,15 +114,12 @@ export default async function ProductDetailPage({ params }: Props) {
                             <p>{product.description || "Bu ürün için henüz detaylı bir açıklama girilmemiştir. Kumaş ve işleme detayları için bizimle iletişime geçebilirsiniz."}</p>
                         </div>
 
-                        <a
-                            href={whatsappUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-full bg-emerald-600 text-white flex justify-center items-center gap-2 py-4 text-sm tracking-widest uppercase font-medium hover:bg-emerald-700 transition-colors mb-4"
-                        >
-                            <MessageCircle className="w-5 h-5" />
-                            WhatsApp'tan Bilgi Al
-                        </a>
+                        <WhatsAppInquiryButton
+                            productId={product.id}
+                            productName={product.name}
+                            whatsappNumber="905426650749"
+                            initialProductUrl={productUrl}
+                        />
 
                         <FavoriteButton productId={product.id} variant="detail" />
 

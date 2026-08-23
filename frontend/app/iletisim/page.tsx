@@ -6,7 +6,7 @@ export default function ContactPage() {
     const googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=Koreli+%C3%87eyiz+Bal%C4%B1kesir";
 
     // KİLİT NOKTA: WhatsApp linki yeni numaraya ayarlandı
-    const whatsappLink = "https://wa.me/905078845423?text=Merhaba,%20sitenizden%20ulaşıyorum.%20Ürünler%20hakkında%20bilgi%20alabilir%20miyim?";
+    const whatsappLink = "https://wa.me/905426650749?text=Merhaba,%20sitenizden%20ulaşıyorum.%20Ürünler%20hakkında%20bilgi%20alabilir%20miyim?";
 
     return (
         <main className="bg-white min-h-screen pt-16 pb-24 text-stone-800">

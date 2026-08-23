@@ -91,7 +91,7 @@ export default function Navbar() {
                             </Link>
 
                             <a
-                                href="https://wa.me/905078845423?text=Merhaba,%20sitenizden%20ula%C5%9F%C4%B1yorum.%20Bilgi%20alabilir%20miyim?"
+                                href="https://wa.me/905426650749?text=Merhaba,%20sitenizden%20ula%C5%9F%C4%B1yorum.%20Bilgi%20alabilir%20miyim?"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-[#2A2A2A] hover:text-[#966842] transition flex items-center gap-2 group hidden sm:flex"
@@ -146,7 +146,7 @@ export default function Navbar() {
                             <Tags className="w-4 h-4 text-stone-400" /> Koleksiyonlar
                         </Link>
 
-                        <a href="https://wa.me/905078845423" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 text-sm font-medium text-stone-700 hover:bg-stone-50 hover:text-[#966842] rounded transition-colors uppercase tracking-wider">
+                        <a href="https://wa.me/905426650749" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 text-sm font-medium text-stone-700 hover:bg-stone-50 hover:text-[#966842] rounded transition-colors uppercase tracking-wider">
                             <Phone className="w-4 h-4 text-stone-400" /> İletişime Geç
                         </a>
                     </div>
