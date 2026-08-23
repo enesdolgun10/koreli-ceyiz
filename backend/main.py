@@ -49,11 +49,13 @@ def verify_admin_token(credentials: HTTPAuthorizationCredentials = Depends(secur
 app = FastAPI(title="Koreli Çeyiz API")
 
 # --- CORS GÜVENLİK AYARLARI ---
-# Yerel geliştirme ve canlı (Vercel) alan adları
+# Yerel geliştirme ve canlı alan adları
 default_origins = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "https://koreli-ceyiz.vercel.app"
+    "https://koreli-ceyiz.vercel.app",
+    "https://koreliceyiz.com",
+    "https://www.koreliceyiz.com"
 ]
 
 allowed_origins_str = os.getenv("ALLOWED_ORIGINS", "")
