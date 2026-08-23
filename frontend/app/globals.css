@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* KİLİT NOKTA: Karanlık modda bile sitenin arka planının siyah (#0a0a0a) olmasını engelledik. 
+   Bunun yerine temiz bir beyaz (#ffffff) veya taş rengi (#fafaf9) kullanıyoruz. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #ffffff; 
+    --foreground: #171717;
+  }
+}
+
+html {
+  scroll-behavior: auto !important;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Sitenin tamamında metin seçimini kapatarak elit görünümü koruma */
+* {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Form girdileri ve metin alanları seçilebilir kalmalı */
+input, textarea, [contenteditable="true"] {
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+}
